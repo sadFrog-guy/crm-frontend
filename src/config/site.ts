@@ -4,47 +4,47 @@ export const siteConfig = {
   name: "Vite + NextUI",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
-    // {
-    //   label: "Main",
-    //   href: "/",
-    // },
     {
-      label: "Groups",
+      label: "Группы",
       href: "/",
     },
     {
-      label: "Students",
+      label: "Ученики",
       href: "/students",
     },
     {
-      label: "Teachers",
+      label: "Педагоги",
       href: "/teacher",
     },
     {
-      label: "Lessons",
+      label: "Уроки",
       href: "/lessons",
+    },
+    {
+      label: "Финансы",
+      href: "/finances",
     },
   ],
   navMenuItems: [
-    // {
-    //   label: "Main",
-    //   href: "/",
-    // },
     {
-      label: "Groups",
+      label: "Группы",
       href: "/",
     },
     {
-      label: "Students",
+      label: "Ученики",
       href: "/students",
     },
     {
-      label: "Teachers",
+      label: "Педагоги",
       href: "/teacher",
     },
     {
-      label: "Lessons",
+      label: "Уроки",
       href: "/lessons",
+    },
+    {
+      label: "Финансы",
+      href: "/finances",
     },
   ],
   links: {
