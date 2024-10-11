@@ -1,49 +1,57 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { Teacher } from '@/types/teachers';
-import { baseQueryWithErrorHandling } from './errorHandler';
-import returnUrlWithParams from '@/functions/returnUrlWithParams';
+import { createApi } from "@reduxjs/toolkit/query/react";
+
+import { baseQueryWithErrorHandling } from "./errorHandler";
+
+import { Teacher } from "@/types/teachers";
+import returnUrlWithParams from "@/functions/returnUrlWithParams";
 
 export const teacherApi = createApi({
-  reducerPath: 'teacherApi',
+  reducerPath: "teacherApi",
   baseQuery: baseQueryWithErrorHandling,
-  tagTypes: ['Teachers'],
+  tagTypes: ["Teachers"],
   endpoints: (builder) => ({
-    getTeachers: builder.query<Teacher[], { id: number; type: 'branch' | 'group' }>({
+    getTeachers: builder.query<
+      Teacher[],
+      { id: number; type: "branch" | "group" }
+    >({
       query: ({ id, type }) => ({
-        url: returnUrlWithParams('teachers', id, type),
+        url: returnUrlWithParams("teachers", id, type),
       }),
-      providesTags: ['Teachers'],
+      providesTags: ["Teachers"],
     }),
 
     getTeacherById: builder.query<Teacher, number>({
       query: (id) => `/teachers/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Teachers', id }],
+      providesTags: (result, error, id) => [{ type: "Teachers", id }],
     }),
 
     createTeacher: builder.mutation<Teacher, Partial<Teacher>>({
       query: (newTeacher) => ({
-        url: '/teachers/',
-        method: 'POST',
+        url: "/teachers/",
+        method: "POST",
         body: newTeacher,
       }),
-      invalidatesTags: ['Teachers'],
+      invalidatesTags: ["Teachers"],
     }),
 
-    updateTeacher: builder.mutation<Teacher, { id: number; updatedTeacher: Partial<Teacher> }>({
+    updateTeacher: builder.mutation<
+      Teacher,
+      { id: number; updatedTeacher: Partial<Teacher> }
+    >({
       query: ({ id, updatedTeacher }) => ({
         url: `/teachers/${id}/`,
-        method: 'PUT',
+        method: "PUT",
         body: updatedTeacher,
       }),
-      invalidatesTags: ['Teachers'],
+      invalidatesTags: ["Teachers"],
     }),
 
     deleteTeacher: builder.mutation<void, number>({
       query: (id) => ({
         url: `/teachers/${id}/`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['Teachers'],
+      invalidatesTags: ["Teachers"],
     }),
   }),
 });

@@ -1,15 +1,23 @@
-import { Gender } from '@/types/gender';
-import { Chip } from '@nextui-org/chip';
+import { Chip } from "@nextui-org/chip";
+
+import { Gender } from "@/types/gender";
 
 interface GenderChipProps {
   gender: Gender;
 }
 
-export default function GenderChip({gender}: GenderChipProps) {
-  
+export default function GenderChip({ gender }: GenderChipProps) {
   if (gender === "Мужчина") {
-    return <Chip size="sm" variant="flat" className="bg-blue-100 text-blue-500">{gender}</Chip>
+    return (
+      <Chip className="bg-blue-100 text-blue-500" size="sm" variant="flat">
+        {gender}
+      </Chip>
+    );
   } else {
-    return <Chip size="sm" variant="flat" className="bg-pink-100 text-pink-500">{gender}</Chip>
+    return (
+      <Chip className="bg-pink-100 text-pink-500" size="sm" variant="flat">
+        {gender}
+      </Chip>
+    );
   }
 }

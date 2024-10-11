@@ -5,9 +5,7 @@ export interface Teacher {
   group: number;
   branch: number;
   sex: Gender;
-  status: "Уволен" |
-          "На отпуске" |
-          "Работает";
+  status: "Уволен" | "На отпуске" | "Работает";
   name: string;
   surname: string;
   phone: string;

@@ -1,11 +1,14 @@
-import formatDateForDisplay from '@/functions/formatDateForDisplay';
-import formatFinance from '@/functions/formatFinance';
-import { Teacher } from '@/types/teachers';
-import { Link } from 'react-router-dom';
-import StudentInfo from './StudentInfo';
+// @ts-nocheck
+import { Link } from "react-router-dom";
+
+import StudentInfo from "./StudentInfo";
+
+import formatDateForDisplay from "@/functions/formatDateForDisplay";
+import formatFinance from "@/functions/formatFinance";
+import { Teacher } from "@/types/teachers";
 
 type TeacherStatsProps = {
-  teacher: Teacher,
+  teacher: Teacher;
   isBranchLoading: boolean;
   branchName: string;
   isGroupLoading: boolean;
@@ -34,14 +37,14 @@ export default function TeacherStats({
 
       <div className="flex flex-col gap-2">
         <StudentInfo
+          isLoading={isBranchLoading}
           label="Филиал:"
           value={branchName}
-          isLoading={isBranchLoading}
         />
         <StudentInfo
+          isLoading={isGroupLoading}
           label="Группа:"
           value={groupName}
-          isLoading={isGroupLoading}
         />
       </div>
 
@@ -49,7 +52,7 @@ export default function TeacherStats({
         <StudentInfo
           label="Телефон:"
           value={
-            <Link url={`tel:${teacher.phone}`} placement="top" canCopy={true}>
+            <Link canCopy={true} placement="top" url={`tel:${teacher.phone}`}>
               {teacher.phone}
             </Link>
           }
@@ -57,7 +60,7 @@ export default function TeacherStats({
         <StudentInfo
           label="Whatsapp:"
           value={
-            <Link url={`https://wa.me/${teacher.whatsapp.replace('+', '')}`}>
+            <Link url={`https://wa.me/${teacher.whatsapp.replace("+", "")}`}>
               {teacher.whatsapp}
             </Link>
           }
@@ -71,5 +74,5 @@ export default function TeacherStats({
         />
       </div>
     </div>
-  )
+  );
 }

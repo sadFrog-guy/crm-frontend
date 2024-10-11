@@ -1,28 +1,38 @@
-import { Group } from '@/types/groups';
-import Heading from './Heading';
-import Margin from './Margin';
-import StatusChip from './StatusChip';
-import formatDateForDisplay from '@/functions/formatDateForDisplay';
-import { TableCell, TableRow } from '@nextui-org/table';
-import { useGetStudentsQuery } from '@/services/studentsAPI';
-import { useGetLessonSchedulesQuery } from '@/services/lessonsScheduleAPI';
-import { Student } from '@/types/students';
-import { LessonSchedule } from '@/types/lessonsSchedule';
-import { formatDaysOfWeek } from '@/functions/formatDaysOfWeek';
-import { formatTime } from '@/functions/formatTime';
-import Link from './Link';
-import { TableMini } from './TableMini';
-import { studentMiniColumns } from '@/tableColumns/studentMiniColumns';
-import { scheduleColumns } from '@/tableColumns/scheduleColumns';
-import PositionChip from './PositionChip';
+import { TableCell, TableRow } from "@nextui-org/table";
+
+import Heading from "./Heading";
+import Margin from "./Margin";
+import StatusChip from "./StatusChip";
+import Link from "./Link";
+import { TableMini } from "./TableMini";
+import PositionChip from "./PositionChip";
+
+import { Group } from "@/types/groups";
+import formatDateForDisplay from "@/functions/formatDateForDisplay";
+import { useGetStudentsQuery } from "@/services/studentsAPI";
+import { useGetLessonSchedulesQuery } from "@/services/lessonsScheduleAPI";
+import { Student } from "@/types/students";
+import { LessonSchedule } from "@/types/lessonsSchedule";
+import { formatDaysOfWeek } from "@/functions/formatDaysOfWeek";
+import { formatTime } from "@/functions/formatTime";
+import { studentMiniColumns } from "@/tableColumns/studentMiniColumns";
+import { scheduleColumns } from "@/tableColumns/scheduleColumns";
 
 interface GroupDetailContentProps {
   group: Group;
 }
 
 export default function GroupDetailContent({ group }: GroupDetailContentProps) {
-  const { data: students, isLoading, isError } = useGetStudentsQuery({id: group.id, type: 'group'});
-  const { data: schedules, isLoading: schedulesAreLoading, isError: schedulesIsError } = useGetLessonSchedulesQuery(group.id);
+  const {
+    data: students,
+    isLoading,
+    isError,
+  } = useGetStudentsQuery({ id: group.id, type: "group" });
+  const {
+    data: schedules,
+    isLoading: schedulesAreLoading,
+    isError: schedulesIsError,
+  } = useGetLessonSchedulesQuery(group.id);
 
   return (
     <div>
@@ -50,8 +60,6 @@ export default function GroupDetailContent({ group }: GroupDetailContentProps) {
           <TableMini
             columns={scheduleColumns}
             data={schedules || []}
-            isLoading={schedulesAreLoading}
-            isError={schedulesIsError}
             formatRow={(item: LessonSchedule) => (
               <TableRow key={item.id}>
                 <TableCell>{formatDaysOfWeek(item.days_of_week)}</TableCell>
@@ -59,6 +67,8 @@ export default function GroupDetailContent({ group }: GroupDetailContentProps) {
                 <TableCell>{formatTime(item.end_time)}</TableCell>
               </TableRow>
             )}
+            isError={schedulesIsError}
+            isLoading={schedulesAreLoading}
           />
         </div>
 
@@ -68,22 +78,26 @@ export default function GroupDetailContent({ group }: GroupDetailContentProps) {
           <TableMini
             columns={studentMiniColumns}
             data={students || []}
-            isLoading={isLoading}
-            isError={isError}
             formatRow={(item: Student) => (
               <TableRow key={item.id}>
                 <TableCell>{`${item.name} ${item.surname.substring(0, 1)}.`}</TableCell>
                 <TableCell>
-                  <Link url={`tel:${item.phone}`} canCopy={true}>{item.phone}</Link>
+                  <Link canCopy={true} url={`tel:${item.phone}`}>
+                    {item.phone}
+                  </Link>
                 </TableCell>
                 <TableCell>
-                  <Link url={`https://wa.me/${item.whatsapp.replace("+", "")}`}>{item.whatsapp}</Link>
+                  <Link url={`https://wa.me/${item.whatsapp.replace("+", "")}`}>
+                    {item.whatsapp}
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <StatusChip status={item.status} />
                 </TableCell>
               </TableRow>
             )}
+            isError={isError}
+            isLoading={isLoading}
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function Logo() {
   return (
@@ -6,5 +6,5 @@ export default function Logo() {
       <span className="text-2xl text-blue-500 mr-[5px]">Deutsch</span>
       <span className="text-lg">CRM</span>
     </h1>
-  )
+  );
 }

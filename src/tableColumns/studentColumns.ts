@@ -1,30 +1,30 @@
 export const studentColumns = [
   {
     key: "name",
-    label: "ИМЯ"
+    label: "ИМЯ",
   },
   {
     key: "status",
-    label: "СТАТУС"
+    label: "СТАТУС",
   },
   {
     key: "group",
-    label: "ГРУППА"
+    label: "ГРУППА",
   },
   {
     key: "next_payment_date",
-    label: "СЛЕДУЮЩАЯ ОПЛАТА"
+    label: "СЛЕДУЮЩАЯ ОПЛАТА",
   },
   {
     key: "study_start_date",
-    label: "НАЧАЛО ОБУЧЕНИЯ"
+    label: "НАЧАЛО ОБУЧЕНИЯ",
   },
   {
     key: "phone",
-    label: "ТЕЛЕФОН"
+    label: "ТЕЛЕФОН",
   },
   {
     key: "whatsapp",
-    label: "WHATSAPP"
+    label: "WHATSAPP",
   },
-]
+];

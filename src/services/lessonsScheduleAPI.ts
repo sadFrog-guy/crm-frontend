@@ -1,44 +1,52 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { LessonSchedule } from '@/types/lessonsSchedule';
-import { baseQueryWithErrorHandling } from './errorHandler';
+import { createApi } from "@reduxjs/toolkit/query/react";
+
+import { baseQueryWithErrorHandling } from "./errorHandler";
+
+import { LessonSchedule } from "@/types/lessonsSchedule";
 
 export const lessonScheduleApi = createApi({
-  reducerPath: 'lessonScheduleApi',
+  reducerPath: "lessonScheduleApi",
   baseQuery: baseQueryWithErrorHandling,
-  tagTypes: ['LessonSchedule'],
+  tagTypes: ["LessonSchedule"],
   endpoints: (builder) => ({
     getLessonSchedules: builder.query<LessonSchedule[], number>({
       query: (groupId) => ({
         url: `/lesson-schedules?group=${groupId}`,
       }),
-      providesTags: ['LessonSchedule'],
+      providesTags: ["LessonSchedule"],
     }),
     getLessonScheduleById: builder.query<LessonSchedule, number>({
       query: (id) => `/lesson-schedules/${id}`,
-      providesTags: ['LessonSchedule'],
+      providesTags: ["LessonSchedule"],
     }),
-    createLessonSchedule: builder.mutation<LessonSchedule, Partial<LessonSchedule>>({
+    createLessonSchedule: builder.mutation<
+      LessonSchedule,
+      Partial<LessonSchedule>
+    >({
       query: (newSchedule) => ({
-        url: '/lesson-schedules/',
-        method: 'POST',
+        url: "/lesson-schedules/",
+        method: "POST",
         body: newSchedule,
       }),
-      invalidatesTags: ['LessonSchedule'],
+      invalidatesTags: ["LessonSchedule"],
     }),
-    updateLessonSchedule: builder.mutation<LessonSchedule, { id: number; updatedSchedule: Partial<LessonSchedule> }>({
+    updateLessonSchedule: builder.mutation<
+      LessonSchedule,
+      { id: number; updatedSchedule: Partial<LessonSchedule> }
+    >({
       query: ({ id, updatedSchedule }) => ({
         url: `/lesson-schedules/${id}/`,
-        method: 'PUT',
+        method: "PUT",
         body: updatedSchedule,
       }),
-      invalidatesTags: ['LessonSchedule'],
+      invalidatesTags: ["LessonSchedule"],
     }),
     deleteLessonSchedule: builder.mutation<void, number>({
       query: (id) => ({
         url: `/lesson-schedules/${id}/`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['LessonSchedule'],
+      invalidatesTags: ["LessonSchedule"],
     }),
   }),
 });

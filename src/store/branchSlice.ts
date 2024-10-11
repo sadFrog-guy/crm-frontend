@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface BranchState {
   branchId: number | null; // null для случая, когда филиал не выбран
@@ -9,7 +9,7 @@ const initialState: BranchState = {
 };
 
 const branchSlice = createSlice({
-  name: 'branch',
+  name: "branch",
   initialState,
   reducers: {
     setBranchId: (state, action: PayloadAction<number>) => {

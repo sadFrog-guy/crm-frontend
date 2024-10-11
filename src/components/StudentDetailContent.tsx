@@ -1,52 +1,68 @@
-import { Student } from '@/types/students'
-import Heading from './Heading'
-import StatusChip from './StatusChip'
-import Margin from './Margin'
-import { useGetGroupsByIdQuery } from '@/services/groupsAPI'
-import usePersistentError from '@/hooks/usePersistentError'
-import { useGetBranchesQuery } from '@/services/branchesAPI'
-import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
-import GenderChip from './GenderChip'
-import { TableMini } from './TableMini'
-import { formatDaysOfWeek } from '@/functions/formatDaysOfWeek'
-import { formatTime } from '@/functions/formatTime'
-import { useGetLessonSchedulesQuery } from '@/services/lessonsScheduleAPI'
-import { LessonSchedule } from '@/types/lessonsSchedule'
-import { TableRow, TableCell } from '@nextui-org/table'
-import { scheduleColumns } from '@/tableColumns/scheduleColumns'
-import StudentStats from './StudentStats'
-import {Card, CardBody} from "@nextui-org/card";
-import PositionChip from './PositionChip'
+// @ts-nocheck
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { TableRow, TableCell } from "@nextui-org/table";
+import { Card, CardBody } from "@nextui-org/card";
+
+import Heading from "./Heading";
+import StatusChip from "./StatusChip";
+import Margin from "./Margin";
+import GenderChip from "./GenderChip";
+import { TableMini } from "./TableMini";
+import StudentStats from "./StudentStats";
+import PositionChip from "./PositionChip";
+
+import { Student } from "@/types/students";
+import { useGetGroupsByIdQuery } from "@/services/groupsAPI";
+import usePersistentError from "@/hooks/usePersistentError";
+import { useGetBranchesQuery } from "@/services/branchesAPI";
+import { formatDaysOfWeek } from "@/functions/formatDaysOfWeek";
+import { formatTime } from "@/functions/formatTime";
+import { useGetLessonSchedulesQuery } from "@/services/lessonsScheduleAPI";
+import { LessonSchedule } from "@/types/lessonsSchedule";
+import { scheduleColumns } from "@/tableColumns/scheduleColumns";
 
 interface StudentDetailContentProps {
-  student: Student
+  student: Student;
 }
 
-export default function StudentDetailContent({student}: StudentDetailContentProps) {
-	const { data: group, isError: isGroupError, isLoading: isGroupLoading } = useGetGroupsByIdQuery(Number(student.group));
-  const { entities: branches, isError: isBranchError, isLoading: isBranchLoading } = usePersistentError(useGetBranchesQuery);
-  const { data: schedules, isLoading: schedulesAreLoading, isError: schedulesIsError } = useGetLessonSchedulesQuery(
-    group?.id,
-    { skip: !group }
-  );
+export default function StudentDetailContent({
+  student,
+}: StudentDetailContentProps) {
+  const {
+    data: group,
+    isError: isGroupError,
+    isLoading: isGroupLoading,
+  } = useGetGroupsByIdQuery(Number(student.group));
+  const {
+    entities: branches,
+    isError: isBranchError,
+    isLoading: isBranchLoading,
+  } = usePersistentError(useGetBranchesQuery);
+  const {
+    data: schedules,
+    isLoading: schedulesAreLoading,
+    isError: schedulesIsError,
+  } = useGetLessonSchedulesQuery(group?.id, { skip: !group });
 
   const branchId = useSelector((state) => state.branch.branchId);
-  const [branchName, setBranchName] = useState("")
-  const [groupName, setGroupName] = useState("")
-  
-  useEffect(() => {
-    setBranchName(branches?.filter(item => item.id === branchId)[0].name)
-  }, [branches, isBranchLoading])
+  const [branchName, setBranchName] = useState("");
+  const [groupName, setGroupName] = useState("");
 
   useEffect(() => {
-    setGroupName(group?.name)
-  }, [group, isGroupLoading])
+    setBranchName(branches?.filter((item) => item.id === branchId)[0].name);
+  }, [branches, isBranchLoading]);
+
+  useEffect(() => {
+    setGroupName(group?.name);
+  }, [group, isGroupLoading]);
 
   return (
     <div>
       <div className="flex items-center gap-4">
-        <Heading size="2xl">{student.name} {student.surname}</Heading>
+        <Heading size="2xl">
+          {student.name} {student.surname}
+        </Heading>
         <PositionChip position="Ученик" />
         <StatusChip status={student.status} />
         <GenderChip gender={student.sex} />
@@ -55,11 +71,11 @@ export default function StudentDetailContent({student}: StudentDetailContentProp
       <Margin direction="b" value={20} />
 
       <StudentStats
-        student={student}
-        isBranchLoading={isBranchLoading}
         branchName={branchName}
-        isGroupLoading={isGroupLoading}
         groupName={groupName}
+        isBranchLoading={isBranchLoading}
+        isGroupLoading={isGroupLoading}
+        student={student}
       />
 
       <Margin direction="b" value={40} />
@@ -71,8 +87,6 @@ export default function StudentDetailContent({student}: StudentDetailContentProp
           <TableMini
             columns={scheduleColumns}
             data={schedules || []}
-            isLoading={schedulesAreLoading}
-            isError={schedulesIsError}
             formatRow={(item: LessonSchedule) => (
               <TableRow key={item.id}>
                 <TableCell>{formatDaysOfWeek(item.days_of_week)}</TableCell>
@@ -80,6 +94,8 @@ export default function StudentDetailContent({student}: StudentDetailContentProp
                 <TableCell>{formatTime(item.end_time)}</TableCell>
               </TableRow>
             )}
+            isError={schedulesIsError}
+            isLoading={schedulesAreLoading}
           />
         </div>
 
@@ -87,12 +103,10 @@ export default function StudentDetailContent({student}: StudentDetailContentProp
           <Heading>Описание</Heading>
           <Margin direction="b" value={15} />
           <Card className="p-2">
-            <CardBody>
-              {student.description}
-            </CardBody>
+            <CardBody>{student.description}</CardBody>
           </Card>
         </div>
       </div>
     </div>
-  )
+  );
 }

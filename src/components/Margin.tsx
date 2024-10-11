@@ -1,38 +1,36 @@
 interface MarginProps {
-    direction: "t" | "b" | "l" | "r",
-    value: number
+  direction: "t" | "b" | "l" | "r";
+  value: number;
 }
 
 interface styleObjectTypes {
-  marginTop?: string,
-  marginBottom?: string,
-  marginLeft?: string,
-  marginRight?: string,
+  marginTop?: string;
+  marginBottom?: string;
+  marginLeft?: string;
+  marginRight?: string;
 }
 
-export default function Margin({direction, value}: MarginProps) {
+export default function Margin({ direction, value }: MarginProps) {
   function generateStyles() {
-    let styleObject: styleObjectTypes = {}
+    let styleObject: styleObjectTypes = {};
 
     switch (direction) {
       case "t":
-        styleObject.marginTop = `${value}px`
-        break
+        styleObject.marginTop = `${value}px`;
+        break;
       case "b":
-        styleObject.marginBottom = `${value}px`
-        break
+        styleObject.marginBottom = `${value}px`;
+        break;
       case "l":
-        styleObject.marginLeft = `${value}px`
-        break
+        styleObject.marginLeft = `${value}px`;
+        break;
       case "r":
-        styleObject.marginRight = `${value}px`
-        break
+        styleObject.marginRight = `${value}px`;
+        break;
     }
 
-    return styleObject
+    return styleObject;
   }
 
-  return (
-    <div style={generateStyles()}/>
-  )
+  return <div style={generateStyles()} />;
 }

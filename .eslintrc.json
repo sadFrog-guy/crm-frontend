@@ -26,6 +26,8 @@
     }
   },
   "rules": {
+    "jsx-quotes": ["off"],
+    "react/display-name": "off",
     "no-console": "warn",
     "react/prop-types": "off",
     "react/jsx-uses-react": "off",

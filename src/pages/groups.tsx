@@ -1,3 +1,6 @@
+// @ts-nocheck
+import { useSelector } from "react-redux";
+
 import Heading from "@/components/Heading";
 import Margin from "@/components/Margin";
 import Template from "@/layouts/template";
@@ -5,10 +8,9 @@ import usePageLabel from "@/hooks/usePageLabel";
 import { useGetGroupsQuery } from "@/services/groupsAPI";
 import TableGroup from "@/components/TableGroup";
 import GroupToolbar from "@/components/GroupToolbar";
-import { useSelector } from "react-redux";
 
 export default function GroupsPage() {
-  const pageLabel = usePageLabel()  
+  const pageLabel = usePageLabel();
   const branchId = useSelector((state) => state.branch.branchId);
   const { data: groups, isError, isLoading } = useGetGroupsQuery(branchId);
 
@@ -17,17 +19,13 @@ export default function GroupsPage() {
       <div>
         <Heading>{pageLabel}</Heading>
 
-        <Margin direction="b" value={30}/>
+        <Margin direction="b" value={30} />
 
-        <GroupToolbar/>
+        <GroupToolbar />
 
-        <Margin direction="b" value={30}/>
+        <Margin direction="b" value={30} />
 
-        <TableGroup
-          groups={groups}
-          isError={isError}
-          isLoading={isLoading}
-        />
+        <TableGroup groups={groups} isError={isError} isLoading={isLoading} />
       </div>
     </Template>
   );

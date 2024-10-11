@@ -1,20 +1,17 @@
-import { TableCell } from '@nextui-org/table'
-import { useGetGroupsByIdQuery } from '@/services/groupsAPI'
-import { Spinner } from '@nextui-org/spinner'
+import { Spinner } from "@nextui-org/spinner";
+
+import { useGetGroupsByIdQuery } from "@/services/groupsAPI";
 
 interface GroupNameProps {
-    groupId: number
+  groupId: number;
 }
 
-export default function GroupName({groupId}: GroupNameProps) {
-    const { data: group, isLoading } = useGetGroupsByIdQuery(groupId)
+export default function GroupName({ groupId }: GroupNameProps) {
+  const { data: group, isLoading } = useGetGroupsByIdQuery(groupId);
 
-    return (
-        <>
-            {isLoading
-                ? <Spinner size="sm" color="default"/>
-                : <p>{group?.name}</p>
-            }
-        </>
-    )
+  return (
+    <>
+      {isLoading ? <Spinner color="default" size="sm" /> : <p>{group?.name}</p>}
+    </>
+  );
 }

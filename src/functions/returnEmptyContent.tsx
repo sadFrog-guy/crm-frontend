@@ -1,7 +1,3 @@
 export default function returnEmptyContent() {
-    return (
-      <p>
-        Пока что пусто
-      </p>
-    )
+  return <p>Пока что пусто</p>;
 }

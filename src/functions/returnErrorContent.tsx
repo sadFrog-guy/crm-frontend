@@ -3,5 +3,5 @@ export default function returnErrorContent() {
     <p className="text-danger-500">
       <span>Что-то пошло не так. Перезагрузите страницу</span>
     </p>
-  )
+  );
 }

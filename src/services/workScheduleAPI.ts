@@ -1,9 +1,11 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithErrorHandling } from './errorHandler';
-import { WorkSchedule } from '@/types/workSchedule';
+import { createApi } from "@reduxjs/toolkit/query/react";
+
+import { baseQueryWithErrorHandling } from "./errorHandler";
+
+import { WorkSchedule } from "@/types/workSchedule";
 
 export const workScheduleApi = createApi({
-  reducerPath: 'workScheduleApi',
+  reducerPath: "workScheduleApi",
   baseQuery: baseQueryWithErrorHandling,
   endpoints: (builder) => ({
     getWorkSchedule: builder.query<WorkSchedule[], number>({

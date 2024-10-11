@@ -1,49 +1,57 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { Finance } from '@/types/finances';
-import { baseQueryWithErrorHandling } from './errorHandler';
-import returnUrlWithParams from '@/functions/returnUrlWithParams';
+import { createApi } from "@reduxjs/toolkit/query/react";
+
+import { baseQueryWithErrorHandling } from "./errorHandler";
+
+import { Finance } from "@/types/finances";
+import returnUrlWithParams from "@/functions/returnUrlWithParams";
 
 export const financeApi = createApi({
-  reducerPath: 'financeApi',
+  reducerPath: "financeApi",
   baseQuery: baseQueryWithErrorHandling,
-  tagTypes: ['Finances'],
+  tagTypes: ["Finances"],
   endpoints: (builder) => ({
-    getFinances: builder.query<Finance[], { id: number; type: 'branch' | 'teacher' | 'student' }>({
+    getFinances: builder.query<
+      Finance[],
+      { id: number; type: "branch" | "teacher" | "student" }
+    >({
       query: ({ id, type }) => ({
-        url: returnUrlWithParams('finance-records', id, type),
+        url: returnUrlWithParams("finance-records", id, type),
       }),
-      providesTags: ['Finances'],
+      providesTags: ["Finances"],
     }),
 
     getFinanceById: builder.query<Finance, number>({
       query: (id) => `/finance-records/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Finances', id }],
+      providesTags: (result, error, id) => [{ type: "Finances", id }],
     }),
 
     createFinance: builder.mutation<Finance, Partial<Finance>>({
       query: (newFinance) => ({
-        url: '/finance-records/',
-        method: 'POST',
+        url: "/finance-records/",
+        method: "POST",
         body: newFinance,
       }),
-      invalidatesTags: ['Finances'],
+      invalidatesTags: ["Finances"],
     }),
 
-    updateFinance: builder.mutation<Finance, { id: number; updatedFinance: Partial<Finance> }>({
+    updateFinance: builder.mutation<
+      Finance,
+      { id: number; updatedFinance: Partial<Finance> }
+    >({
       query: ({ id, updatedFinance }) => ({
         url: `/finance-records/${id}/`,
-        method: 'PUT',
+        method: "PUT",
         body: updatedFinance,
       }),
-      invalidatesTags: ['Finances'],
+      invalidatesTags: ["Finances"],
     }),
 
     deleteFinance: builder.mutation<void, number>({
       query: (id) => ({
         url: `/finance-records/${id}/`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['Finances'],
+      invalidatesTags: ["Finances"],
     }),
   }),
 });

@@ -1,15 +1,17 @@
-import { lessonScheduleApi } from './../services/lessonsScheduleAPI';
-import { workScheduleApi } from './../services/workScheduleAPI';
-import { financeApi } from './../services/financesAPI';
-import { studentApi } from '@/services/studentsAPI';
-import { groupsApi } from '@/services/groupsAPI';
-import { branchApi } from '@/services/branchesAPI';
-import { teacherApi } from '@/services/teachersAPI';
-import { configureStore } from '@reduxjs/toolkit';
-import branchReducer from './branchSlice';
-import selectedRowReducer from './selectedRowSlice';
-import { lessonsApi } from '@/services/lessonAPI';
-import { attendancesApi } from '@/services/attendanceAPI';
+import { configureStore } from "@reduxjs/toolkit";
+
+import { lessonScheduleApi } from "./../services/lessonsScheduleAPI";
+import { workScheduleApi } from "./../services/workScheduleAPI";
+import { financeApi } from "./../services/financesAPI";
+import branchReducer from "./branchSlice";
+import selectedRowReducer from "./selectedRowSlice";
+
+import { studentApi } from "@/services/studentsAPI";
+import { groupsApi } from "@/services/groupsAPI";
+import { branchApi } from "@/services/branchesAPI";
+import { teacherApi } from "@/services/teachersAPI";
+import { lessonsApi } from "@/services/lessonAPI";
+import { attendancesApi } from "@/services/attendanceAPI";
 
 export const store = configureStore({
   reducer: {
@@ -27,15 +29,15 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
-              .concat(studentApi.middleware)
-              .concat(groupsApi.middleware)
-              .concat(branchApi.middleware)
-              .concat(lessonScheduleApi.middleware)
-              .concat(workScheduleApi.middleware)
-              .concat(teacherApi.middleware)
-              .concat(financeApi.middleware)
-              .concat(lessonsApi.middleware)
-              .concat(attendancesApi.middleware)
+      .concat(studentApi.middleware)
+      .concat(groupsApi.middleware)
+      .concat(branchApi.middleware)
+      .concat(lessonScheduleApi.middleware)
+      .concat(workScheduleApi.middleware)
+      .concat(teacherApi.middleware)
+      .concat(financeApi.middleware)
+      .concat(lessonsApi.middleware)
+      .concat(attendancesApi.middleware);
   },
 });
 

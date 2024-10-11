@@ -1,26 +1,26 @@
 export const teacherColumns = [
   {
     key: "name_surname",
-    label: "УЧИТЕЛЬ"
+    label: "УЧИТЕЛЬ",
   },
   {
     key: "status",
-    label: "СТАТУС"
+    label: "СТАТУС",
   },
   {
     key: "sex",
-    label: "ПОЛ"
+    label: "ПОЛ",
   },
   {
     key: "group",
-    label: "ГРУППА"
+    label: "ГРУППА",
   },
   {
     key: "salary_rate",
-    label: "СТАВКА"
+    label: "СТАВКА",
   },
   {
     key: "next_payment_date",
-    label: "ДАТА СЛЕД. ЗАРПЛАТЫ"
+    label: "ДАТА СЛЕД. ЗАРПЛАТЫ",
   },
-]
+];

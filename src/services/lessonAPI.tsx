@@ -1,49 +1,53 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithErrorHandling } from './errorHandler';
-import returnUrlWithParams from '@/functions/returnUrlWithParams';
-import { Lesson } from '@/types/lesson';
+import { createApi } from "@reduxjs/toolkit/query/react";
+
+import { baseQueryWithErrorHandling } from "./errorHandler";
+
+import { Lesson } from "@/types/lesson";
 
 export const lessonsApi = createApi({
-  reducerPath: 'lessonsApi',
+  reducerPath: "lessonsApi",
   baseQuery: baseQueryWithErrorHandling,
-  tagTypes: ['Lessons'],
+  tagTypes: ["Lessons"],
   endpoints: (builder) => ({
     getLessons: builder.query({
       query: () => ({
-        url: '/lessons',
+        url: "/lessons",
       }),
-      providesTags: ['Lessons'],
+      providesTags: ["Lessons"],
     }),
 
     getLessonById: builder.query<Lesson, number>({
       query: (id) => `/lessons/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Lessons', id }],
+      providesTags: (result, error, id) => [{ type: "Lessons", id }],
     }),
 
     createLesson: builder.mutation<Lesson, Partial<Lesson>>({
       query: (newLesson) => ({
-        url: '/lessons/',
-        method: 'POST',
+        url: "/lessons/",
+        method: "POST",
         body: newLesson,
       }),
-      invalidatesTags: ['Lessons'],
+      invalidatesTags: ["Lessons"],
     }),
 
-    updateLesson: builder.mutation<Lesson, { id: number; updatedLesson: Partial<Lesson> }>({
+    updateLesson: builder.mutation<
+      Lesson,
+      { id: number; updatedLesson: Partial<Lesson> }
+    >({
       query: ({ id, updatedLesson }) => ({
         url: `/lessons/${id}/`,
-        method: 'PUT',
+        method: "PUT",
         body: updatedLesson,
       }),
-      invalidatesTags: ['Lessons'],
+      invalidatesTags: ["Lessons"],
     }),
 
     deleteLesson: builder.mutation<void, number>({
       query: (id) => ({
         url: `/lessons/${id}/`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['Lessons'],
+      invalidatesTags: ["Lessons"],
     }),
   }),
 });

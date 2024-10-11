@@ -1,26 +1,26 @@
 export const financeColumns = [
   {
     key: "amount",
-    label: "СУММА"
+    label: "СУММА",
   },
   {
     key: "category",
-    label: "КАТЕГОРИЯ"
+    label: "КАТЕГОРИЯ",
   },
   {
     key: "type",
-    label: "ТИП"
+    label: "ТИП",
   },
   {
     key: "date",
-    label: "ДАТА"
+    label: "ДАТА",
   },
   {
     key: "time",
-    label: "ВРЕМЯ"
+    label: "ВРЕМЯ",
   },
   {
     key: "name",
-    label: "ПРИМЕЧАНИЕ"
+    label: "ПРИМЕЧАНИЕ",
   },
-]
+];
