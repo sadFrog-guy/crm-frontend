@@ -86,7 +86,7 @@ export default function Template({children}: TemplateProps) {
 
       </SideBar>
 
-      <div className="w-[83%] h-screen flex flex-col">
+      <div className="w-full h-screen flex flex-col">
           <TopBar/>
 
           <div className="p-5">
@@ -96,7 +96,7 @@ export default function Template({children}: TemplateProps) {
 
       <Toaster 
 				position="top-right" 
-				expand={true} 
+				expand={false} 
         richColors
         toastOptions={{
           style: {
@@ -104,7 +104,8 @@ export default function Template({children}: TemplateProps) {
             border: "2px solid #006FEE",
             color: "#006FEE",
             borderRadius: "16px"
-          }
+          },
+          duration: 3000
         }}
 			/>
     </div>

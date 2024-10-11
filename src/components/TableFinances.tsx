@@ -6,13 +6,14 @@ import { Finance } from '@/types/finances'
 import { Spinner } from '@nextui-org/spinner'
 import { TableRow, TableCell } from '@nextui-org/table'
 import { financeColumns } from '@/tableColumns/financeColumns'
-import GroupName from './GroupName'
-import StatusChip from './StatusChip'
-import TableLink from './TableLink'
 import formatFinance from '@/functions/formatFinance'
 import { formatTime } from '@/functions/formatTime'
 import FinanceChip from './FinanceChip';
 import shortenString from '@/functions/shortenString'
+import ToolBarModal from './ToolBarModal'
+import { useState } from 'react'
+import TableLink from './TableLink';
+import { Tooltip } from '@nextui-org/tooltip'
 
 interface TableFinancesProps {
   finances: Finance[],
@@ -41,8 +42,15 @@ export default function TableFinances({finances, isLoading, isError}: TableFinan
           <TableCell>
             {formatTime(item.time)}
           </TableCell>
-          <TableCell>
-            {shortenString(item.name)}
+          <TableCell className='cursor-pointer'>
+            <Tooltip 
+              placement='left' 
+              showArrow 
+              className="max-w-xs text-xs" 
+              content={item.name}
+            >
+              {item.name ? shortenString(item.name) : "---"}
+            </Tooltip>
           </TableCell>
         </TableRow>
       )

@@ -11,10 +11,10 @@ import GenderChip from './GenderChip'
 import { TableMini } from './TableMini'
 import { formatDaysOfWeek } from '@/functions/formatDaysOfWeek'
 import { formatTime } from '@/functions/formatTime'
-import { useGetLessonsScheduleQuery } from '@/services/lessonsScheduleAPI'
+import { useGetLessonSchedulesQuery } from '@/services/lessonsScheduleAPI'
 import { LessonSchedule } from '@/types/lessonsSchedule'
 import { TableRow, TableCell } from '@nextui-org/table'
-import { lessonColumns } from '@/tableColumns/scheduleColumns'
+import { scheduleColumns } from '@/tableColumns/scheduleColumns'
 import StudentStats from './StudentStats'
 import {Card, CardBody} from "@nextui-org/card";
 import PositionChip from './PositionChip'
@@ -26,7 +26,7 @@ interface StudentDetailContentProps {
 export default function StudentDetailContent({student}: StudentDetailContentProps) {
 	const { data: group, isError: isGroupError, isLoading: isGroupLoading } = useGetGroupsByIdQuery(Number(student.group));
   const { entities: branches, isError: isBranchError, isLoading: isBranchLoading } = usePersistentError(useGetBranchesQuery);
-  const { data: schedules, isLoading: schedulesAreLoading, isError: schedulesIsError } = useGetLessonsScheduleQuery(
+  const { data: schedules, isLoading: schedulesAreLoading, isError: schedulesIsError } = useGetLessonSchedulesQuery(
     group?.id,
     { skip: !group }
   );
@@ -69,7 +69,7 @@ export default function StudentDetailContent({student}: StudentDetailContentProp
           <Heading>Расписание занятий</Heading>
           <Margin direction="b" value={15} />
           <TableMini
-            columns={lessonColumns}
+            columns={scheduleColumns}
             data={schedules || []}
             isLoading={schedulesAreLoading}
             isError={schedulesIsError}

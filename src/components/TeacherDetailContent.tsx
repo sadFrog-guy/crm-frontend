@@ -13,7 +13,7 @@ import { useGetGroupsByIdQuery } from '@/services/groupsAPI'
 import { useGetWorkScheduleQuery } from '@/services/workScheduleAPI'
 import { formatDaysOfWeek } from '@/functions/formatDaysOfWeek'
 import { formatTime } from '@/functions/formatTime'
-import { lessonColumns } from '@/tableColumns/scheduleColumns'
+import { scheduleColumns } from '@/tableColumns/scheduleColumns'
 import { LessonSchedule } from '@/types/lessonsSchedule'
 import { Card, CardBody } from '@nextui-org/card'
 import { TableRow, TableCell } from '@nextui-org/table'
@@ -67,7 +67,7 @@ export default function TeacherDetailContent({teacher}: TeacherDetailContentProp
           <Heading>График работы</Heading>
           <Margin direction="b" value={15} />
           <TableMini
-            columns={lessonColumns}
+            columns={scheduleColumns}
             data={schedules || []}
             isLoading={schedulesAreLoading}
             isError={schedulesIsError}

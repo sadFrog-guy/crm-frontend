@@ -23,23 +23,23 @@ const financeTypes = {
 
 type FinanceTypeKeys = keyof typeof financeTypes;
 
-const getColorByValue = (value: FinanceTypeKeys): 'primary' | 'secondary' | 'warning' | 'success' | 'danger' => {
-  switch (value) {
-    case 'course_payment':
-    case 'advance_payment':
-    case 'income':
+const getColorByLabel = (label: string): 'primary' | 'secondary' | 'warning' | 'success' | 'danger' => {
+  switch (label) {
+    case 'Оплата за обучение':
+    case 'Авансовый платеж':
+    case 'Доход':
       return 'success';
-    case 'teacher_salary':
-    case 'rent':
-    case 'taxes':
-    case 'expense':
+    case 'Зарплата преподавателям':
+    case 'Аренда помещения':
+    case 'Налоги и сборы':
+    case 'Расход':
       return 'danger';
-    case 'marketing':
-    case 'operation':
-    case 'it_support':
+    case 'Маркетинг и реклама':
+    case 'Операционные расходы':
+    case 'Техническое обслуживание и IT':
       return 'warning';
-    case 'materials_purchase':
-    case 'stationery':
+    case 'Закупка учебных материалов':
+    case 'Покупка канцелярии':
       return 'secondary';
     default:
       return 'primary';
@@ -47,9 +47,9 @@ const getColorByValue = (value: FinanceTypeKeys): 'primary' | 'secondary' | 'war
 };
 
 export default function FinanceChip({ value }: FinanceChipProps) {
-  const label = financeTypes[value as FinanceTypeKeys] || value;
+  const label = financeTypes[value as FinanceTypeKeys] || value; // Получаем соответствующий текст
   return (
-    <Chip size="sm" variant="flat" color={getColorByValue(value as FinanceTypeKeys)}>
+    <Chip size="sm" variant="flat" color={getColorByLabel(label)}>
       {label}
     </Chip>
   );

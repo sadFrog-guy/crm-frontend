@@ -11,9 +11,10 @@ interface TableTemplateProps {
     isLoading: boolean,
     loadingContent: React.ReactNode,
     emptyContent: React.ReactNode,
+    selectionMode: string,
 }
 
-export default function TableTemplate({columns, data, children, isLoading, loadingContent, emptyContent}: TableTemplateProps) {
+export default function TableTemplate({columns, data, children, isLoading, loadingContent, emptyContent, selectionMode='single'}: TableTemplateProps) {
   const dispatch = useDispatch();
 	const isDisabled = useSelector(state => state.selectedRow.isDisabled);
 	const selectedId = useSelector(state => state.selectedRow.rowId);
@@ -21,6 +22,7 @@ export default function TableTemplate({columns, data, children, isLoading, loadi
 
   function handleSelection(e) {
     const selectedRowId = Number(e.currentKey)
+    console.log(e, selectedRowId)
 
     if (selectedId === selectedRowId && counter === 1) {
       setCounter(prev => prev + 1)
@@ -43,7 +45,7 @@ export default function TableTemplate({columns, data, children, isLoading, loadi
   return (
     <Table
       aria-labelledby='something'
-      selectionMode='single'
+      selectionMode={selectionMode}
       onSelectionChange={handleSelection}
     > 
         <TableHeader columns={columns}>

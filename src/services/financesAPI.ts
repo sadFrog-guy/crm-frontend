@@ -16,7 +16,7 @@ export const financeApi = createApi({
     }),
 
     getFinanceById: builder.query<Finance, number>({
-      query: (id) => `/finances/${id}`,
+      query: (id) => `/finance-records/${id}`,
       providesTags: (result, error, id) => [{ type: 'Finances', id }],
     }),
 

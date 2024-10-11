@@ -1,19 +1,19 @@
 export interface Finance {
   id: number;
-  category: 'income' | 'expense';
+  category: 'Доход' | 'Расход';
   type:
-    | 'course_payment'
-    | 'advance_payment'
-    | 'material_sales'
-    | 'consultation'
-    | 'teacher_salary'
-    | 'rent'
-    | 'materials_purchase'
-    | 'marketing'
-    | 'operation'
-    | 'it_support'
-    | 'stationery'
-    | 'taxes';
+    | 'Оплата за обучение'
+    | 'Авансовый платеж'
+    | 'Продажа учебных материалов'
+    | 'Зарплата преподавателям'
+    | 'Зарплата сотруднику'
+    | 'Аренда помещения'
+    | 'Закупка учебных материалов'
+    | 'Маркетинг и реклама'
+    | 'Операционные расходы'
+    | 'Техническое обслуживание и IT'
+    | 'Покупка канцелярии'
+    | 'Налоги и сборы';
   name: string;
   amount: string;
   description?: string;

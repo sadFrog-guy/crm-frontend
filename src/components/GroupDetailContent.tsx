@@ -5,7 +5,7 @@ import StatusChip from './StatusChip';
 import formatDateForDisplay from '@/functions/formatDateForDisplay';
 import { TableCell, TableRow } from '@nextui-org/table';
 import { useGetStudentsQuery } from '@/services/studentsAPI';
-import { useGetLessonsScheduleQuery } from '@/services/lessonsScheduleAPI';
+import { useGetLessonSchedulesQuery } from '@/services/lessonsScheduleAPI';
 import { Student } from '@/types/students';
 import { LessonSchedule } from '@/types/lessonsSchedule';
 import { formatDaysOfWeek } from '@/functions/formatDaysOfWeek';
@@ -13,7 +13,7 @@ import { formatTime } from '@/functions/formatTime';
 import Link from './Link';
 import { TableMini } from './TableMini';
 import { studentMiniColumns } from '@/tableColumns/studentMiniColumns';
-import { lessonColumns } from '@/tableColumns/scheduleColumns';
+import { scheduleColumns } from '@/tableColumns/scheduleColumns';
 import PositionChip from './PositionChip';
 
 interface GroupDetailContentProps {
@@ -22,7 +22,7 @@ interface GroupDetailContentProps {
 
 export default function GroupDetailContent({ group }: GroupDetailContentProps) {
   const { data: students, isLoading, isError } = useGetStudentsQuery({id: group.id, type: 'group'});
-  const { data: schedules, isLoading: schedulesAreLoading, isError: schedulesIsError } = useGetLessonsScheduleQuery(group.id);
+  const { data: schedules, isLoading: schedulesAreLoading, isError: schedulesIsError } = useGetLessonSchedulesQuery(group.id);
 
   return (
     <div>
@@ -48,7 +48,7 @@ export default function GroupDetailContent({ group }: GroupDetailContentProps) {
           <Heading>Расписание занятий</Heading>
           <Margin direction="b" value={15} />
           <TableMini
-            columns={lessonColumns}
+            columns={scheduleColumns}
             data={schedules || []}
             isLoading={schedulesAreLoading}
             isError={schedulesIsError}

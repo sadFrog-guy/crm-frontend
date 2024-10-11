@@ -111,6 +111,33 @@ export default function StudentToolbar() {
   const [emptyFieldError, setEmptyFieldError] = useState("")
   const [notPhoneFormattedError, setNotPhoneFormattedError] = useState("")
 
+  // confirm disabled
+  const [isConfirmDisabled, setConfirmDisabled] = useState(false) 
+
+  useEffect(() => {
+    if (
+      (name.length > 0 && surname.length > 0 && phone.length > 0 && whatsapp.length > 0 && description.length > 0)
+      &&
+      (!isNameError && !isSurnameError && !isPaymentError && !isPhoneError && !isWhatsappError && !isDescriptionError)
+    ) {
+      setConfirmDisabled(false)
+    } else {
+      setConfirmDisabled(true)
+    }
+  }, [
+    name, 
+    surname, 
+    phone, 
+    whatsapp, 
+    description, 
+    isNameError,
+    isSurnameError,
+    isPaymentError,
+    isPhoneError,
+    isWhatsappError,
+    isDescriptionError,
+  ])
+
   // get selected row
   const selectedRowId = useSelector(state => state.selectedRow.rowId)
   const { data: student, isError: isGetStudentByIdError, isLoading: isGetStudentByIdLoading, refetch: refetchStudent } = useGetStudentByIdQuery(selectedRowId)
@@ -127,7 +154,7 @@ export default function StudentToolbar() {
     setDescription("")
     setStudyStart(parseDate(returnCurrentDate()))
     setPayment(1)
-    setGroupId(1)
+    setGroupId(null)
     setSex(sexOptions[0])
     setStatus(statusOptions[0])
     setSource(sourceOptions[0])
@@ -266,6 +293,7 @@ export default function StudentToolbar() {
         onDiscard={handleReset}
         onConfirm={handleCreate}
         isLoading={isStudentCreating}
+        isConfirmDisabled={isConfirmDisabled}
       >
         <div className="flex flex-col gap-5">
           <div className="flex justify-between">
@@ -298,6 +326,7 @@ export default function StudentToolbar() {
 
           <div className="flex justify-between">
             <Select
+              disallowEmptySelection={true}
               isRequired
               label="Пол"
               labelPlacement="outside" 
@@ -318,6 +347,7 @@ export default function StudentToolbar() {
             </Select>
 
             <Select
+              disallowEmptySelection={true}
               isRequired
               label="Статус"
               labelPlacement="outside" 
@@ -378,6 +408,7 @@ export default function StudentToolbar() {
 
           <div className="flex justify-between items-start">
             <Select
+              disallowEmptySelection={true}
               isRequired
               label="Откуда узнал"
               labelPlacement="outside" 
@@ -421,6 +452,7 @@ export default function StudentToolbar() {
           />
 
           <Select
+            disallowEmptySelection={true}
             isRequired
             label="Группа"
             labelPlacement="outside" 
@@ -451,6 +483,7 @@ export default function StudentToolbar() {
         onDiscard={handleReset}
         onConfirm={handleEdit}
         isLoading={isStudentEditing}
+        isConfirmDisabled={isConfirmDisabled}
       >
         <div className="flex flex-col gap-5">
           <div className="flex justify-between">
@@ -483,6 +516,7 @@ export default function StudentToolbar() {
 
           <div className="flex justify-between">
             <Select
+            disallowEmptySelection={true}
               isRequired
               label="Пол"
               labelPlacement="outside" 
@@ -503,6 +537,7 @@ export default function StudentToolbar() {
             </Select>
 
             <Select
+            disallowEmptySelection={true}
               isRequired
               label="Статус"
               labelPlacement="outside" 
@@ -563,6 +598,7 @@ export default function StudentToolbar() {
 
           <div className="flex justify-between items-start">
             <Select
+            disallowEmptySelection={true}
               isRequired
               label="Откуда узнал"
               labelPlacement="outside" 
@@ -606,6 +642,7 @@ export default function StudentToolbar() {
           />
 
           <Select
+            disallowEmptySelection={true}
             isRequired
             label="Группа"
             labelPlacement="outside" 

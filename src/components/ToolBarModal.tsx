@@ -9,15 +9,17 @@ import { Button } from "@nextui-org/button";
 import React from "react";
 
 interface ToolBarModalProps {
-    isOpen: boolean,
-    onOpenChange: () => void,
-    onOpen: () => void,
-    children: React.ReactNode,
-    title: string,
-    onConfirm?: () => void,
-    onDiscard?: () => void,
-    isLoading: boolean,
-    scrollBehavior?: "inside" | "outside"
+  isOpen: boolean,
+  onOpenChange: () => void,
+  onOpen: () => void,
+  children: React.ReactNode,
+  title: string,
+  onConfirm?: () => void,
+  onDiscard?: () => void,
+  isLoading: boolean,
+  scrollBehavior?: "inside" | "outside",
+  isConfirmDisabled?: boolean,
+  showButtons?: boolean
 }
 
 function plugFunction() {
@@ -33,7 +35,9 @@ export default function ToolBarModal({
   onConfirm = plugFunction, 
   onDiscard = plugFunction,
   isLoading,
-  scrollBehavior="inside"
+  scrollBehavior="inside",
+  isConfirmDisabled=false,
+  showButtons=true
 }: ToolBarModalProps) {
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} scrollBehavior={scrollBehavior}>
@@ -45,18 +49,25 @@ export default function ToolBarModal({
                 {children}
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={() => {
-                    onDiscard()
-                    onClose()
-                }}>
-                  Отменить
-                </Button>
-                <Button isLoading={isLoading} color="primary" onPress={() => {
-                    onConfirm()
-                    onClose()
-                }}>
-                  Подтвердить
-                </Button>
+                {showButtons
+                  ? (
+                    <>
+                      <Button color="danger" variant="light" onPress={() => {
+                        onDiscard()
+                        onClose()
+                      }}>
+                        Отменить
+                      </Button>
+                      <Button isLoading={isLoading} isDisabled={isConfirmDisabled} color="primary" onPress={() => {
+                          onConfirm()
+                          onClose()
+                      }}>
+                        Подтвердить
+                      </Button>
+                    </>
+                  )
+                  : ""
+                }
               </ModalFooter>
             </>
           )}

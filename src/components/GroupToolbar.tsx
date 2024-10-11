@@ -9,14 +9,16 @@ import { useGetBranchesQuery } from '@/services/branchesAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useCreateGroupMutation, useDeleteGroupMutation, useGetGroupsByIdQuery, useUpdateGroupMutation } from '@/services/groupsAPI';
-import {CalendarDate, parseDate} from "@internationalized/date";
-import formatDatePart from '@/functions/formatDatePart';
+import {CalendarDate, parseAbsoluteToLocal, parseDate} from "@internationalized/date";
 import formatDate from '@/functions/formatDate';
 import returnCurrentDate from '@/functions/returnCurrentDate';
 import withMinZeroCheck from '@/functions/decorators/withMinZeroCheck';
 import { withEmptyFieldCheck } from '@/functions/decorators/withEmptyFieldCheck';
 import { toast } from 'sonner';
 import handleInput from '@/functions/handleInput';
+import { TimeInput } from '@nextui-org/date-input';
+import { useCreateLessonScheduleMutation, useUpdateLessonScheduleMutation } from '@/services/lessonsScheduleAPI';
+import { formatTimeForSchedule } from '@/functions/formatTimeForSchedule';
 
 export default function GroupToolbar() {
   // get branch
@@ -44,6 +46,10 @@ export default function GroupToolbar() {
   const [createGroup, { isLoading: isGroupCreating, isError: isGroupCreateError, error: groupCreateError, isSuccess: isGroupCreateSuccess }] = useCreateGroupMutation();
   const [editGroup, { isLoading: isGroupEditing, isError: isGroupEditError, error: groupEditError, isSuccess: isGroupEditSuccess }] = useUpdateGroupMutation();
   const [deleteGroup, { isLoading: isGroupDeleting, isError: isGroupDeleteError, error: groupDeleteError, isSuccess: isGroupDeleteSuccess }] = useDeleteGroupMutation();
+
+  // Lesson Schedule CREATE/EDIT
+  const [createSchedule, {isLoading: isScheduleCreating}] = useCreateLessonScheduleMutation();
+  const [editSchedule, {isLoading: isScheduleEditing}] = useUpdateLessonScheduleMutation();
 
   // Group create effects, notifications about status of CRUD
   useEffect(() => {
@@ -82,6 +88,7 @@ export default function GroupToolbar() {
 
   // Select options
   const selectOptions = ["Активна", "Набор открыт", "Завершена"]
+  const daysOfWeekOptions = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"]
 
   // Input states  
   const [name, setName] = useState("")
@@ -89,6 +96,9 @@ export default function GroupToolbar() {
   const [startDate, setStartDate] = useState(parseDate(returnCurrentDate()))
   const [duration, setDuration] = useState(1)
   const [maxStudents, setMaxStudents] = useState(1)
+  const [daysOfWeek, setDaysOfWeek] = useState(new Set([daysOfWeekOptions[0]]))
+  const [startTime, setStartTime] = useState(parseAbsoluteToLocal("2024-04-08T04:00:22Z"))
+  const [endTime, setEndTime] = useState(parseAbsoluteToLocal("2024-04-08T06:00:22Z"))
 
   // Error states
   const [isDurationError, setDurationError] = useState(false)
@@ -98,6 +108,18 @@ export default function GroupToolbar() {
   const [minZeroError, setMinZeroError] = useState("")
   const [emptyFieldError, setEmptyFieldError] = useState("")
 
+  // confirm disabled
+  const [isConfirmDisabled, setConfirmDisabled] = useState(false) 
+
+  useEffect(() => {
+    if ((name.length > 0) && (!isDurationError && !isMaxStudentsError && !isNameError)) {
+      setConfirmDisabled(false)
+    } else {
+      setConfirmDisabled(true)
+    }
+  }, [name, isDurationError, isMaxStudentsError, isNameError])
+
+  // handlers
   function handleReset() {
     setName("");
     setStatus(selectOptions[0]);
@@ -113,6 +135,13 @@ export default function GroupToolbar() {
     setEmptyFieldError("");
   };
 
+  const newSchedule = {
+    days_of_week: ["Понедельник", "Вторник"],
+    start_time: formatTimeForSchedule(startTime.hour, startTime.minute, startTime.second),
+    end_time: formatTimeForSchedule(endTime.hour, endTime.minute, endTime.second),
+    group: null
+  }
+  
   async function handleCreate() {
     if (!isDurationError && !isMaxStudentsError && !isNameError) {
       const newGroup = {
@@ -124,8 +153,19 @@ export default function GroupToolbar() {
         start_date: formatDate(startDate.year, startDate.month, startDate.day)
       }
 
+      // const newSchedule = {
+      //   days_of_week: ["Понедельник", "Вторник"],
+      //   start_time: formatTimeForSchedule(startTime.hour, startTime.minute, startTime.second),
+      //   end_time: formatTimeForSchedule(endTime.hour, endTime.minute, endTime.second),
+      //   group: null
+      // }
+      
       try {
-        await createGroup(newGroup).unwrap();
+        const response = await createGroup(newGroup).unwrap();
+        
+        // newSchedule.group = response.id
+
+        // await createSchedule(newSchedule)
   
         handleReset()
 
@@ -199,6 +239,7 @@ export default function GroupToolbar() {
         onDiscard={handleReset}
         onConfirm={handleCreate}
         isLoading={isGroupCreating}
+        isConfirmDisabled={isConfirmDisabled}
       >
         <div className="flex flex-col gap-4">
           <Input 
@@ -214,6 +255,7 @@ export default function GroupToolbar() {
           />
 
           <Select
+            disallowEmptySelection={true}
             isRequired
             label="Статус"
             labelPlacement="outside" 
@@ -275,6 +317,49 @@ export default function GroupToolbar() {
             placeholder="..."
             labelPlacement="outside"
           />
+
+          {/* <Select
+            disallowEmptySelection={true}
+            isRequired
+            selectionMode="multiple"
+            label="Дни недели"
+            labelPlacement="outside" 
+            placeholder="Выберите дни недели"
+            selectedKeys={daysOfWeek}
+            onChange={(e) => {
+              setDaysOfWeek(new Set(e.target.value.split(",")))
+            }}
+          >
+            {daysOfWeekOptions.map(day => {
+              return (
+                <SelectItem key={day}>
+                  {day}
+                </SelectItem>
+              )
+            })}
+          </Select>
+
+          <div className="flex justify-between">
+            <TimeInput 
+              hideTimeZone 
+              className="w-[49%]"
+              label="Начало занятий"
+              labelPlacement="outside" 
+              hourCycle={24}
+              onChange={setStartTime}
+              value={startTime}
+            />
+
+            <TimeInput
+              hideTimeZone 
+              className="w-[49%]"
+              label="Конец занятий"
+              labelPlacement="outside" 
+              hourCycle={24}
+              onChange={setEndTime}
+              value={endTime}
+            />
+          </div> */}
         </div>
       </ToolBarModal>
 
@@ -286,6 +371,7 @@ export default function GroupToolbar() {
         onDiscard={handleReset}
         onConfirm={handleEdit}
         isLoading={isGroupEditing}
+        isConfirmDisabled={isConfirmDisabled}
       >
         <div className="flex flex-col gap-4">
           <Input 
@@ -301,6 +387,7 @@ export default function GroupToolbar() {
           />
 
           <Select
+            disallowEmptySelection={true}
             isRequired
             label="Статус"
             labelPlacement="outside" 

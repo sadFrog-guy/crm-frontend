@@ -17,12 +17,13 @@ export default function TopBar() {
     dispatch(setBranchId(selectedBranchId));
 
 		const selectedBranchName = branches?.filter(item => item.id === selectedBranchId)[0]
-		toast.info(`Вы перешли на филиал ${selectedBranchName.name}`, {duration: 3000})
+		toast.info(`Вы перешли на филиал ${selectedBranchName.name}`)
   };
 
 	return (
 		<div className="flex justify-center items-center min-h-10 border-b-2 border-foreground-200">
 			<Select 
+				disallowEmptySelection={true}
 				className="max-w-[235px]" 
 				classNames={{trigger: "bg-white data-[hover=true]:bg-white"}}
 				onChange={handleBranchChange}
