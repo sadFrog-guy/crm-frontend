@@ -8,7 +8,7 @@ import FinanceChip from "./FinanceChip";
 import formatDateForDisplay from "@/functions/formatDateForDisplay";
 import returnEmptyContent from "@/functions/returnEmptyContent";
 import returnErrorContent from "@/functions/returnErrorContent";
-import TableTemplate from "@/layouts/tableTemplate";
+import TableTemplate from "@/layouts/TableTemplate";
 import { Finance } from "@/types/finances";
 import { financeColumns } from "@/tableColumns/financeColumns";
 import formatFinance from "@/functions/formatFinance";

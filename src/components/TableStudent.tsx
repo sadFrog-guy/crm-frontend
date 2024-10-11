@@ -8,7 +8,7 @@ import Link from "./Link";
 import TableLink from "./TableLink";
 
 import { Student } from "@/types/students";
-import TableTemplate from "@/layouts/tableTemplate";
+import TableTemplate from "@/layouts/TableTemplate";
 import returnEmptyContent from "@/functions/returnEmptyContent";
 import returnErrorContent from "@/functions/returnErrorContent";
 import formatDateForDisplay from "@/functions/formatDateForDisplay";

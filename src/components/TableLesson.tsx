@@ -14,7 +14,7 @@ import LessonInfo from "./LessonInfo";
 import formatDateForDisplay from "@/functions/formatDateForDisplay";
 import returnEmptyContent from "@/functions/returnEmptyContent";
 import returnErrorContent from "@/functions/returnErrorContent";
-import TableTemplate from "@/layouts/tableTemplate";
+import TableTemplate from "@/layouts/TableTemplate";
 import { lessonColumns } from "@/tableColumns/lessonColumns";
 import { Lesson } from "@/types/lesson";
 

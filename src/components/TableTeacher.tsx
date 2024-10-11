@@ -10,7 +10,7 @@ import GenderChip from "./GenderChip";
 import formatDateForDisplay from "@/functions/formatDateForDisplay";
 import returnEmptyContent from "@/functions/returnEmptyContent";
 import returnErrorContent from "@/functions/returnErrorContent";
-import TableTemplate from "@/layouts/tableTemplate";
+import TableTemplate from "@/layouts/TableTemplate";
 import { Teacher } from "@/types/teachers";
 import formatFinance from "@/functions/formatFinance";
 import { teacherColumns } from "@/tableColumns/teacherColumns";
