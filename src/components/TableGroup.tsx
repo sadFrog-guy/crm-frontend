@@ -5,7 +5,7 @@ import { Spinner } from "@nextui-org/spinner";
 import StatusChip from "./StatusChip";
 import TableLink from "./TableLink";
 
-import TableTemplate from "@/layouts/tableTemplate";
+import TableTemplate from "@/layouts/TableTemplate";
 import { Group } from "@/types/groups";
 import returnEmptyContent from "@/functions/returnEmptyContent";
 import returnErrorContent from "@/functions/returnErrorContent";
