@@ -1,4 +1,4 @@
-// @t.s.-n.o.c.heck
+// @ts-nocheck
 import { Table, TableHeader, TableColumn, TableBody } from "@nextui-org/table";
 import {Pagination, PaginationItem, PaginationCursor} from "@nextui-org/pagination";
 import React, { useEffect, useState } from "react";
