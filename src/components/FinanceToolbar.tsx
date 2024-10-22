@@ -229,7 +229,13 @@ export default function FinanceToolbar() {
   useEffect(() => {
     if (
       name.length > 0 &&
-      (studentId !== null || teacherId !== null) &&
+      (
+        (category === "Доход" && studentId !== null) 
+        || 
+        (type === "Зарплата преподавателям" && teacherId !== null)
+        ||
+        (category === "Расход" && type !== "Зарплата преподавателям")
+      ) &&
       !isCategoryError &&
       !isTypeError &&
       !isNameError &&

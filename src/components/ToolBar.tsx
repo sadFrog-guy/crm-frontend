@@ -3,12 +3,14 @@ import { Button } from "@nextui-org/button";
 import { useSelector } from "react-redux";
 
 interface ToolBarProps {
+  isCreateDisabled?: boolean;
   createEvent?: () => any;
   editEvent?: () => any;
   deleteEvent?: () => any;
 }
 
 export default function ToolBar({
+  isCreateDisabled = false,
   createEvent,
   editEvent,
   deleteEvent,
@@ -22,6 +24,7 @@ export default function ToolBar({
         color="primary"
         variant="bordered"
         onClick={createEvent}
+        isDisabled={isCreateDisabled}
       >
         Создать
       </Button>
@@ -29,7 +32,7 @@ export default function ToolBar({
       <Button
         className="font-medium"
         color={isDisabled ? "default" : "secondary"}
-        isDisabled={isDisabled}
+        isDisabled={isCreateDisabled ? isCreateDisabled : isDisabled}
         variant="bordered"
         onClick={editEvent}
       >
@@ -39,7 +42,7 @@ export default function ToolBar({
       <Button
         className="font-medium"
         color={isDisabled ? "default" : "danger"}
-        isDisabled={isDisabled}
+        isDisabled={isCreateDisabled ? isCreateDisabled : isDisabled}
         variant="bordered"
         onClick={deleteEvent}
       >
@@ -52,7 +55,7 @@ export default function ToolBar({
           (isDisabled ? "opacity-100" : "opacity-0")
         }
       >
-        Нажмите на строчку в таблице, чтобы выбрать группу
+        Нажмите на строчку в таблице, чтобы выбрать элемент
       </p>
     </div>
   );

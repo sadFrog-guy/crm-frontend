@@ -8,9 +8,7 @@ export default function withStoreClear(
 ) {
   return function (link: string) {
     const result = func(link);
-
-    dispatch(setDisabled(true));
-
+    
     return result;
   };
 }

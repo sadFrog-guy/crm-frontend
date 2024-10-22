@@ -64,7 +64,7 @@ export default function Template({ children }: TemplateProps) {
   );
 
   return (
-    <div className="flex">
+    <div className="flex pl-[200px]">
       <SideBar>
         <Logo />
 

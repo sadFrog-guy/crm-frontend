@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Heading from "@/components/Heading";
 import Margin from "@/components/Margin";
@@ -8,6 +8,7 @@ import ToolBar from "@/components/ToolBar";
 import usePageLabel from "@/hooks/usePageLabel";
 import Template from "@/layouts/template";
 import { useGetTeachersQuery } from "@/services/teachersAPI";
+import { setDisabled } from "@/store/selectedRowSlice";
 
 export default function TeachersPage() {
   const pageLabel = usePageLabel();
@@ -25,7 +26,7 @@ export default function TeachersPage() {
 
         <Margin direction="b" value={30} />
 
-        <ToolBar />
+        <ToolBar isCreateDisabled/>
 
         <Margin direction="b" value={30} />
 
