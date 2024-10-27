@@ -10,19 +10,21 @@ export const TableMini = ({
   isLoading,
   isError,
   formatRow,
+  isOnDevelopment = false
 }: {
   columns: { key: string; label: string }[];
   data: any[];
   isLoading: boolean;
   isError: boolean;
   formatRow: (item: any) => JSX.Element;
+  isOnDevelopment?: boolean;
 }) => (
   <Table>
     <TableHeader columns={columns}>
       {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
     </TableHeader>
     <TableBody
-      emptyContent={isError ? returnErrorContent() : returnEmptyContent()}
+      emptyContent={isOnDevelopment ? "В процессе доработки..." : (isError ? returnErrorContent() : returnEmptyContent())}
       isLoading={isLoading}
       items={data}
       loadingContent={<Spinner color="primary" size="sm" />}

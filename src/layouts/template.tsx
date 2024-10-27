@@ -83,6 +83,7 @@ export default function Template({ children }: TemplateProps) {
                   />
                 }
                 isActive={isActive}
+                isOnDevelopment={button.content === "Педагоги" || button.content === "Уроки" ? true : false}
                 link={button.to}
               >
                 {button.content}

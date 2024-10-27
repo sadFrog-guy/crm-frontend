@@ -132,8 +132,7 @@ export default function FinanceToolbar() {
   // Finance create effects, notifications about status of CRUD
   useEffect(() => {
     if (
-      isFinanceCreateSuccess ||
-      isFinanceCreateError
+      isFinanceCreateSuccess
     ) {
       toast.success("Финансовая запись добавлена");
     }

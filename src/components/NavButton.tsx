@@ -7,6 +7,7 @@ interface NavButtonProps {
   icon: React.ReactElement;
   isActive: boolean;
   link: string;
+  isOnDevelopment?: boolean;
 }
 
 export default function NavButton({
@@ -14,6 +15,7 @@ export default function NavButton({
   icon,
   link,
   isActive,
+  isOnDevelopment = false
 }: NavButtonProps) {
   const navigate = useNavigate();
 
@@ -21,11 +23,12 @@ export default function NavButton({
     <Button
       className="flex justify-start font-medium w-full"
       color="primary"
+      isDisabled={isOnDevelopment ? true : false}
       startContent={icon}
       variant={isActive ? "shadow" : "bordered"}
       onClick={() => navigate(link)}
     >
-      {children}
+      {children} {isOnDevelopment && "(ВПР)"}
     </Button>
   );
 }

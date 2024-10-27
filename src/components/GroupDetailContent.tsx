@@ -58,6 +58,7 @@ export default function GroupDetailContent({ group }: GroupDetailContentProps) {
           <Heading>Расписание занятий</Heading>
           <Margin direction="b" value={15} />
           <TableMini
+            isOnDevelopment
             columns={scheduleColumns}
             data={schedules || []}
             formatRow={(item: LessonSchedule) => (
